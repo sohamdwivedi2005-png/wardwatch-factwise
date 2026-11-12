@@ -39,7 +39,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
+    <div className="min-h-screen">
       <div className="mx-auto grid min-h-screen w-full max-w-5xl items-center gap-8 px-4 py-10 lg:grid-cols-[1.1fr_1fr]">
         {/* left: brand hero */}
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-600 via-teal-700 to-teal-800 p-6 text-white shadow-float sm:p-7">

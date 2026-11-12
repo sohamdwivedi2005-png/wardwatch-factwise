@@ -95,7 +95,7 @@ export function AppShell({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen">
       <Header role={user.role} name={user.name} />
       <main className={cn("mx-auto w-full px-4 py-4 sm:py-6", maxWidth)}>{children}</main>
     </div>
@@ -106,7 +106,7 @@ function Header({ role, name }: { role: StaffRole; name: string }) {
   const pathname = usePathname();
   const nav = navFor(role);
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-white/50 glass">
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5">
         <Link href={landingPath(role)} className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600">
@@ -122,8 +122,8 @@ function Header({ role, name }: { role: StaffRole; name: string }) {
                 key={n.href}
                 href={n.href}
                 className={cn(
-                  "rounded-lg px-3 py-1.5 text-sm font-medium",
-                  active ? "bg-teal-50 text-teal-700" : "text-slate-600 hover:bg-slate-100"
+                  "rounded-full px-3.5 py-1.5 text-sm font-semibold transition-all",
+                  active ? "bg-teal-600 text-white shadow-soft" : "text-slate-500 hover:bg-white/70 hover:text-slate-800"
                 )}
               >
                 {n.label}
@@ -144,8 +144,8 @@ function Header({ role, name }: { role: StaffRole; name: string }) {
               key={n.href}
               href={n.href}
               className={cn(
-                "whitespace-nowrap rounded-lg px-3 py-1.5 text-sm font-medium",
-                active ? "bg-teal-50 text-teal-700" : "text-slate-600"
+                "whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-semibold",
+                active ? "bg-teal-600 text-white shadow-soft" : "text-slate-500"
               )}
             >
               {n.label}
