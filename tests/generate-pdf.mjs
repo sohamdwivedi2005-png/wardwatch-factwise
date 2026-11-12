@@ -44,6 +44,7 @@ for (let i = 0; i < have.length; i += 2) {
 
 let html = fs.readFileSync(path.join(SUB, "report.html"), "utf8");
 html = html.replaceAll("{{URL}}", URL).replace("<!--FIGURES-->", figs);
+if (have.length === 0) html = html.replace('<div class="screens-head"></div>', "");
 const filled = path.join(SUB, ".report.filled.html");
 fs.writeFileSync(filled, html);
 
