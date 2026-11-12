@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Soham Dwivedi TPM</title>
+<style>
+  @page { size: A4; margin: 20mm 22mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 11.5pt;
+    line-height: 1.35;
+    color: #000;
+    margin: 0;
+  }
+  h1.title { font-size: 16pt; font-weight: bold; margin: 0 0 2pt; }
+  .meta { margin: 0 0 2pt; }
+  .meta a { color: #0000cc; }
+  h2.q { font-size: 13pt; font-weight: bold; margin: 16pt 0 6pt; }
+  .sub { font-weight: bold; font-style: italic; margin: 10pt 0 3pt; }
+  p { margin: 5pt 0; }
+  ul { margin: 4pt 0 6pt; padding-left: 0; list-style: none; }
+  ul li { position: relative; padding-left: 14pt; margin: 2pt 0; }
+  ul li::before { content: "-"; position: absolute; left: 2pt; }
+  table { border-collapse: collapse; width: 100%; margin: 6pt 0 10pt; }
+  th, td { border: 0.5pt solid #000; padding: 4pt 6pt; text-align: left; vertical-align: top; font-size: 11pt; }
+  th { background: #e6e6e6; }
+  .figpair { page-break-inside: avoid; margin-top: 8pt; }
+  figure { margin: 0 0 10pt; page-break-inside: avoid; }
+  figure img { width: 100%; max-height: 110mm; object-fit: contain; border: 0.5pt solid #999; display: block; }
+  figcaption { font-size: 10pt; font-style: italic; margin-top: 3pt; }
+  .screens-head { page-break-before: always; }
+</style>
+</head>
+<body>
+  <h1 class="title">Technical Product Manager - Campus Assessment</h1>
+  <p class="meta">Name: Soham Dwivedi</p>
+  <p class="meta">Prototype link: <a href="{{URL}}">{{URL}}</a></p>
+  <p class="meta">Login for demo: pick any staff member, PIN 1234</p>
+
+  <h2 class="q">Q1) User types in the first version and what each of them can do</h2>
+  <p>For V1 I'm keeping it to the staff who actually touch the process every day. Patients wont log in to the app in the first version since they dont need to do anything in it, a patient/family view can come later.</p>
+
+  <p class="sub">1. Nurse</p>
+  <ul>
+    <li>Sees the list of all patients for today and which ones still need there temperature taken (pending vs done + a count like 41/74).</li>
+    <li>Records the temperature, only once per patient per day. App shows straight away if its a fever or not.</li>
+    <li>Can correct her own reading on the same day if she typed it wrong (within 2 hrs).</li>
+    <li>Can see the patients past readings and how many fever free days they have.</li>
+    <li>Gets a notification when a doctor asks for a reading for a particular bed.</li>
+  </ul>
+
+  <p class="sub">2. Doctor</p>
+  <ul>
+    <li>Visit list split into: ready for visit (temp already taken), waiting for temperature, and already visited today. So doctors dont go to a patient before the nurse has been.</li>
+    <li>Opens a patient and sees the temperature graph + previous visits.</li>
+    <li>Logs the visit with notes and treatment given.</li>
+    <li>When the system shows a patient has 3 fever free days in a row, doctor signs off the discharge in one click.</li>
+    <li>Records a death if it happens.</li>
+    <li>Can enter a temperature himself only if no nurse is available (has to give reason).</li>
+  </ul>
+
+  <p class="sub">3. Admin staff</p>
+  <ul>
+    <li>Bed board for all 74 beds showing which are occupied, eligible for discharge, cleared, or free.</li>
+    <li>Discharge list of patients the doctor has cleared, with how long they have been waiting. Admin completes discharge and the bed becomes free.</li>
+    <li>Can see upcoming discharges early so the next admission can be planned.</li>
+    <li>Admits a new patient into a free bed, records transfers.</li>
+    <li>Admin cannot see clinical notes or enter temperatures.</li>
+  </ul>
+
+  <p class="sub">4. Head doctor</p>
+  <ul>
+    <li>Everything a doctor can do.</li>
+    <li>A dashboard showing mortality rate (last 30 days and overall) against the 15% benchmark, success rate vs 85%, occupancy, average stay, how long discharges are getting delayed, and % of patients whose temperature / visit was done today.</li>
+    <li>Gets an alert if mortality goes above 15% or if discharges are stuck for more than 4 hours.</li>
+  </ul>
+
+  <p class="sub">How this fixes the problems the head doctor mentioned:</p>
+  <table>
+    <thead><tr><th>Problem</th><th>What V1 does</th></tr></thead>
+    <tbody>
+      <tr><td>Temperature taken twice or not at all</td><td>Only one reading allowed per day, nurses have a pending list</td></tr>
+      <tr><td>Doctor visits before temperature is taken</td><td>Visit can't be logged until reading is there, queue shows who is ready</td></tr>
+      <tr><td>Patients staying extra 1-2 days</td><td>App detects the 3 day rule automatically and tells doctor + admin immediately</td></tr>
+      <tr><td>No way to measure vs 85% benchmark</td><td>Every patient exit recorded as recovered / died / transferred, shown on dashboard</td></tr>
+    </tbody>
+  </table>
+  <p>Not in V1 (later): patient/family portal, other vitals, medicines record, staff rostering, SMS alerts, EMR integration, offline mode.</p>
+
+  <h2 class="q">Q2) Prototype</h2>
+  <p>Link: <a href="{{URL}}">{{URL}}</a></p>
+  <p>Built using AI tools (Claude Code) with Next.js and deployed on Vercel. The data is stored in the browser for the prototype so anyone can try it without making an account. It already has 74 patients loaded (full occupancy) and past outcome data so the dashboard has something to show.</p>
+  <p>How to test the main flow:</p>
+  <ul>
+    <li>Login as Nurse Priya, record a normal temperature for one of the patients who has 2 fever free days (marked "Demo"). It will say the patient is now eligible for discharge. Try entering 45 or recording the same patient again, it gets blocked.</li>
+    <li>Login as Dr. Kavya Mehta, check the visit queue, open a patient, see the graph, log the visit, then sign off the discharge.</li>
+    <li>Login as Rahul (admin), discharge the patient and admit a new one into the empty bed.</li>
+    <li>Login as Dr. Anil Rao (head doctor) to see the dashboard and the mortality alert.</li>
+    <li>'Demo controls' in the user menu lets you move time forward (4 hours / next day) or reset the data.</li>
+  </ul>
+
+  <div class="screens-head"></div>
+  <!--FIGURES-->
+
+  <h2 class="q">Q3) Extra logic / constraints for developers</h2>
+  <p class="sub">Temperature</p>
+  <ul>
+    <li>Fever = 38.0 C (100.4 F) or above. Store in Celcius with 1 decimal.</li>
+    <li>Only allow 34 to 43 C, anything outside is an error. Below 35 or 41 and above should show a warning asking the nurse to re-check and confirm. If 41+ is confirmed, doctors get an urgent alert.</li>
+    <li>One reading per patient per day (day = midnight to midnight). Once recorded, the button is replaced by the value, who took it and when.</li>
+    <li>Nurse can edit only her own reading, same day, within 2 hours. Doctor can edit with a reason. Keep history of every edit, nothing gets deleted.</li>
+    <li>No readings for future dates. Old dates only by doctor with reason and marked as late.</li>
+    <li>Admin can't enter temperatures. Doctor can but has to give reason (we track this to see staffing gaps).</li>
+    <li>No readings for discharged / dead / transferred patients.</li>
+  </ul>
+  <p class="sub">Fever free days and discharge</p>
+  <ul>
+    <li>Count = number of days in a row with a reading below 38. A fever resets it to 0. If a day has no reading it also breaks the count, we shouldn't assume it was fever free.</li>
+    <li>When count reaches 3 the patient becomes 'eligible' automatically and doctor and admin both get notified.</li>
+    <li>Only doctor can sign off and only if patient is eligible. Only admin can complete discharge and only after sign off.</li>
+    <li>If a fever is recorded after the patient became eligible/cleared, it gets cancelled automatically and both are told.</li>
+    <li>If eligible for more than 4 hrs without sign off, head doctor is alerted. Same if cleared but admin hasn't discharged in 4 hrs.</li>
+    <li>Head doctor can override and discharge with a reason, these are shown seperately.</li>
+  </ul>
+  <p class="sub">Doctor visits</p>
+  <ul>
+    <li>Doctor can't log the daily visit until temperature is recorded, show 'awaiting temperature' and a button to notify the nurse.</li>
+    <li>One main visit per patient per day, extra visits are logged as follow ups.</li>
+    <li>Visit notes are compulsory.</li>
+  </ul>
+  <p class="sub">Beds, admission, death</p>
+  <ul>
+    <li>Admit only into a free bed, max 74. When full, the admit button is disabled and shows the next expected discharge.</li>
+    <li>One patient per bed. Bed gets freed only by discharge, death or transfer.</li>
+    <li>Warn if same name + age is already admitted (possible duplicate).</li>
+    <li>Only doctor can record a death, with time and note and a confirm popup. Can't be undone except by head doctor with reason.</li>
+    <li>Transfers are recorded by admin with reason and are not counted in mortality.</li>
+  </ul>
+  <p class="sub">Metrics</p>
+  <ul>
+    <li>Mortality = deaths / (recovered + deaths), only for closed cases. Current patients and transfers are not counted. Success rate = 100% - mortality.</li>
+    <li>Show both last 30 days and overall. Only show the red alert if 30 day mortality is above 15% AND there are atleast 20 closed cases, otherwise a few deaths would trigger false alarms.</li>
+    <li>Daily compliance = % of current patients with todays reading and % with todays visit. Freeze the number at midnight for the trend.</li>
+    <li>Discharge delay = time from eligible to discharged, target under 4 hours.</li>
+  </ul>
+  <p class="sub">Access and general</p>
+  <ul>
+    <li>Role permissions should be checked on the backend also, not just hidden on screen. Admin can't see clinical notes. (In the prototype this is only done in the browser since there is no backend.)</li>
+    <li>Every staff has their own login (no shared logins) so everything is traceable. Auto logout after 15 min idle.</li>
+    <li>Store time in UTC, show in local time.</li>
+    <li>If two people save a reading for the same patient at the same time, the second one gets 'already recorded by X at time'.</li>
+    <li>Don't show patient names in phone lock screen notifications.</li>
+  </ul>
+
+  <h2 class="q">Q4) Sprint planning</h2>
+  <p>Velocity = 25 points. Already committed 3 x 5 = 15. So space left = 25 - 15 = <b>10 points</b>.</p>
+  <p>Taking low = 1 value unit, then medium = 3 x 1 = 3, high = 2 x 3 = 6.</p>
+  <table>
+    <thead><tr><th>Feature</th><th>Priority</th><th>Value</th><th>Effort</th><th>Value/Effort</th></tr></thead>
+    <tbody>
+      <tr><td>J</td><td>Low</td><td>1</td><td>0.1</td><td>10</td></tr>
+      <tr><td>A</td><td>High</td><td>6</td><td>1</td><td>6</td></tr>
+      <tr><td>I</td><td>Low</td><td>1</td><td>0.3</td><td>3.33</td></tr>
+      <tr><td>F</td><td>Medium</td><td>3</td><td>1</td><td>3</td></tr>
+      <tr><td>G</td><td>Low</td><td>1</td><td>0.4</td><td>2.5</td></tr>
+      <tr><td>B</td><td>High</td><td>6</td><td>3</td><td>2</td></tr>
+      <tr><td>H</td><td>Low</td><td>1</td><td>0.5</td><td>2</td></tr>
+      <tr><td>D</td><td>Medium</td><td>3</td><td>2</td><td>1.5</td></tr>
+      <tr><td>C</td><td>High</td><td>6</td><td>5</td><td>1.2</td></tr>
+      <tr><td>E</td><td>Medium</td><td>3</td><td>3</td><td>1</td></tr>
+    </tbody>
+  </table>
+  <p><b>I would add A, B, D, F, G, H, I and J.</b></p>
+  <p>Value = 6 + 6 + 3 + 3 + 1 + 1 + 1 + 1 = 22</p>
+  <p>Effort = 1 + 3 + 2 + 1 + 0.4 + 0.5 + 0.3 + 0.1 = 8.3 points, so total sprint = 15 + 8.3 = 23.3 out of 25.</p>
+  <p>Reasoning:</p>
+  <ul>
+    <li>22 is the max value possible within 10 points (I checked all the combinations of the 10 features).</li>
+    <li>There is one other combination with value 22 - using E instead of D - but it takes 9.3 points, so same value for 1 extra point. D is better.</li>
+    <li>C is high priority but takes 5 points. If we include C the best we can get is 21 value (A, C, D, F, G, I, J for 9.8 points), which is less than 22 and uses more effort.</li>
+    <li>E has the lowest value per point so it's left out.</li>
+    <li>The 1.7 points left over is a good buffer since velocity is only an estimate.</li>
+  </ul>
+</body>
+</html>
