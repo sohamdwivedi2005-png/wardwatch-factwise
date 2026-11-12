@@ -235,6 +235,7 @@ function UserMenu({ role, name }: { role: StaffRole; name: string }) {
     <div className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
+        aria-label="Open user menu"
         className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-slate-100"
       >
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-200 text-xs font-bold text-slate-700">

@@ -1,0 +1,15 @@
+
+Running 10 tests using 1 worker
+
+  ok  1 [chromium] › tests\workflows.spec.ts:22:1 › 1. every role lands on its correct page (6.4s)
+  ok  2 [chromium] › tests\workflows.spec.ts:40:1 › 2. route guard redirects a nurse away from the dashboard (2.3s)
+  ok  3 [chromium] › tests\workflows.spec.ts:47:1 › 3. invalid temperature is rejected (2.1s)
+  ok  4 [chromium] › tests\workflows.spec.ts:55:1 › 4. critical temperature requires a second confirmation (2.3s)
+  ok  5 [chromium] › tests\workflows.spec.ts:64:1 › 5. recording a normal temp makes a Demo patient eligible (2.3s)
+  ok  6 [chromium] › tests\workflows.spec.ts:73:1 › 6. doctor queue shows sections and blocks visits without a temperature (1.7s)
+  ok  7 [chromium] › tests\workflows.spec.ts:81:1 › 7. full discharge lifecycle frees a bed and allows a new admission (6.7s)
+  ok  8 [chromium] › tests\workflows.spec.ts:114:1 › 8. head-doctor dashboard shows the mortality alert and KPIs (2.0s)
+  ok  9 [chromium] › tests\workflows.spec.ts:122:1 › 9. admin cannot see clinical notes on a patient (2.4s)
+  ok 10 [chromium] › tests\workflows.spec.ts:129:1 › 10. demo controls advance time and reset data (2.6s)
+
+  10 passed (32.0s)
