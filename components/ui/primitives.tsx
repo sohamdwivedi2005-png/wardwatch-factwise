@@ -8,8 +8,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-teal-600 text-white hover:bg-teal-700",
-        secondary: "bg-white text-slate-800 border border-slate-300 hover:bg-slate-50",
+        primary:
+          "bg-gradient-to-b from-teal-500 to-teal-600 text-white shadow-sm hover:from-teal-600 hover:to-teal-700 active:from-teal-700 active:to-teal-700",
+        secondary: "bg-white text-slate-800 border border-slate-300 shadow-sm hover:bg-slate-50 hover:border-slate-400",
         ghost: "text-slate-700 hover:bg-slate-100",
         danger: "bg-red-600 text-white hover:bg-red-700",
         subtle: "bg-slate-100 text-slate-800 hover:bg-slate-200",
@@ -36,7 +37,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button";
 
 export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("rounded-xl border border-slate-200 bg-white shadow-sm", className)} {...props} />;
+  return <div className={cn("rounded-2xl border border-slate-200/80 bg-white shadow-soft transition-shadow", className)} {...props} />;
 }
 export function CardHeader({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return <div className={cn("p-4 sm:p-5", className)} {...props} />;

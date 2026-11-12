@@ -41,33 +41,46 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
       <div className="mx-auto grid min-h-screen w-full max-w-5xl items-center gap-8 px-4 py-10 lg:grid-cols-[1.1fr_1fr]">
-        {/* left: identity + guidance */}
-        <div>
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-600">
-              <Activity className="h-6 w-6 text-white" />
-            </span>
-            <div>
-              <h1 className="text-xl font-bold tracking-tight text-slate-900">WardWatch</h1>
-              <p className="text-sm text-slate-500">Daily temperature &amp; discharge tracking</p>
+        {/* left: brand hero */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-600 via-teal-700 to-teal-800 p-6 text-white shadow-float sm:p-7">
+          <div className="pointer-events-none absolute -right-16 -top-20 h-60 w-60 rounded-full bg-white/10 blur-2xl" />
+          <div className="pointer-events-none absolute -bottom-24 -left-12 h-60 w-60 rounded-full bg-white/10 blur-2xl" />
+          <div className="relative">
+            <div className="flex items-center gap-2.5">
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/25 backdrop-blur">
+                <Activity className="h-6 w-6 text-white" />
+              </span>
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight">WardWatch</h1>
+                <p className="text-sm text-teal-50/80">Daily temperature &amp; discharge tracking</p>
+              </div>
             </div>
-          </div>
 
-          <Card className="mt-6 border-teal-100 bg-white">
-            <div className="p-4">
-              <p className="text-sm font-semibold text-slate-900">Try this flow</p>
-              <ol className="mt-2 space-y-1.5 text-sm text-slate-600">
-                <li><span className="mr-1.5 font-semibold text-teal-700">1.</span>Sign in as <b>Nurse Priya Nair</b> and record a normal temperature (e.g. 37.0) for a patient tagged <b>Demo</b> — they become eligible for discharge.</li>
-                <li><span className="mr-1.5 font-semibold text-teal-700">2.</span>Sign in as <b>Dr. Kavya Mehta</b>, open that patient, log a visit, then sign off the discharge.</li>
-                <li><span className="mr-1.5 font-semibold text-teal-700">3.</span>Sign in as <b>Rahul Joshi</b> (admin), complete the discharge, then admit a new patient into the freed bed.</li>
-                <li><span className="mr-1.5 font-semibold text-teal-700">4.</span>Sign in as <b>Dr. Anil Rao</b> (head doctor) to see the quality dashboard and the mortality alert.</li>
+            <p className="mt-6 max-w-sm text-[15px] leading-relaxed text-teal-50/90">
+              One calm, structured view of the day — temperatures, doctor visits, discharges and bed turnover across all 74 beds.
+            </p>
+
+            <div className="mt-6 rounded-2xl bg-white/10 p-4 ring-1 ring-white/15 backdrop-blur">
+              <p className="text-sm font-semibold">Try this flow</p>
+              <ol className="mt-3 space-y-2.5 text-[13px] leading-relaxed text-teal-50/90">
+                {[
+                  <>Sign in as <b className="text-white">Nurse Priya Nair</b> and record a normal temperature (e.g. 37.0) for a patient tagged <b className="text-white">Demo</b> — they become eligible for discharge.</>,
+                  <>Sign in as <b className="text-white">Dr. Kavya Mehta</b>, open that patient, log a visit, then sign off the discharge.</>,
+                  <>Sign in as <b className="text-white">Rahul Joshi</b> (admin), complete the discharge, then admit a new patient into the freed bed.</>,
+                  <>Sign in as <b className="text-white">Dr. Anil Rao</b> (head doctor) to see the quality dashboard and the mortality alert.</>,
+                ].map((step, i) => (
+                  <li key={i} className="flex gap-2.5">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/20 text-[11px] font-bold">{i + 1}</span>
+                    <span>{step}</span>
+                  </li>
+                ))}
               </ol>
             </div>
-          </Card>
 
-          <div className="mt-4 flex items-center gap-2 text-xs text-slate-500">
-            <ShieldCheck className="h-4 w-4 text-slate-400" />
-            Prototype with synthetic patient data. Not a certified clinical system.
+            <div className="mt-5 flex items-center gap-2 text-xs text-teal-50/70">
+              <ShieldCheck className="h-4 w-4" />
+              Prototype with synthetic patient data. Not a certified clinical system.
+            </div>
           </div>
         </div>
 
